@@ -6,9 +6,16 @@
 //
 
 import Foundation
-
-struct InvoiceModel: Identifiable, Codable {
+struct InvoiceResponse: Codable {
+    let jsonrpc: String
     let id: Int
-    let title: String
-    let body: String
+    let result: [InvoiceModel]
 }
+struct InvoiceModel: Codable, Identifiable {
+    var id: Int
+    var name: String
+//    var partner_id: [(Int, String)]
+//    var invoice_date: String
+    var amount_total: Double
+}
+
