@@ -11,6 +11,9 @@
 		4DA307652C99735B00218A24 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA307642C99735B00218A24 /* ContentView.swift */; };
 		4DA307672C99735C00218A24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DA307662C99735C00218A24 /* Assets.xcassets */; };
 		4DA3076A2C99735C00218A24 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DA307692C99735C00218A24 /* Preview Assets.xcassets */; };
+		4DA307752C99761800218A24 /* InvoiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA307742C99761800218A24 /* InvoiceModel.swift */; };
+		4DA307772C9976D200218A24 /* InvoiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA307762C9976D200218A24 /* InvoiceViewModel.swift */; };
+		4DA307792C99782600218A24 /* InvoiceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA307782C99782600218A24 /* InvoiceDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +22,9 @@
 		4DA307642C99735B00218A24 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4DA307662C99735C00218A24 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4DA307692C99735C00218A24 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4DA307742C99761800218A24 /* InvoiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceModel.swift; sourceTree = "<group>"; };
+		4DA307762C9976D200218A24 /* InvoiceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceViewModel.swift; sourceTree = "<group>"; };
+		4DA307782C99782600218A24 /* InvoiceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +57,10 @@
 		4DA307612C99735B00218A24 /* InvoicesOdoo */ = {
 			isa = PBXGroup;
 			children = (
+				4DA307732C9975EB00218A24 /* Views */,
+				4DA307722C9975DE00218A24 /* ViewModels */,
+				4DA307712C9975C200218A24 /* Models */,
 				4DA307622C99735B00218A24 /* InvoicesOdooApp.swift */,
-				4DA307642C99735B00218A24 /* ContentView.swift */,
 				4DA307662C99735C00218A24 /* Assets.xcassets */,
 				4DA307682C99735C00218A24 /* Preview Content */,
 			);
@@ -65,6 +73,31 @@
 				4DA307692C99735C00218A24 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		4DA307712C9975C200218A24 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4DA307742C99761800218A24 /* InvoiceModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4DA307722C9975DE00218A24 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				4DA307762C9976D200218A24 /* InvoiceViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		4DA307732C9975EB00218A24 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4DA307642C99735B00218A24 /* ContentView.swift */,
+				4DA307782C99782600218A24 /* InvoiceDetailView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +171,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DA307652C99735B00218A24 /* ContentView.swift in Sources */,
+				4DA307752C99761800218A24 /* InvoiceModel.swift in Sources */,
+				4DA307792C99782600218A24 /* InvoiceDetailView.swift in Sources */,
+				4DA307772C9976D200218A24 /* InvoiceViewModel.swift in Sources */,
 				4DA307632C99735B00218A24 /* InvoicesOdooApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
