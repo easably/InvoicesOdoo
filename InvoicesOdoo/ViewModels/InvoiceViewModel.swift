@@ -1,13 +1,15 @@
 
 
 import Foundation
-
+import PDFKit
+import SwiftUI
 class InvoiceViewModel: ObservableObject {
     @Published var invoices: [InvoiceModel] = []
+    @Published var pdfURL: URL? = nil
 
     func fetchInvoices() {
         // Define the URL and the JSON-RPC request body
-        guard let url = URL(string: "http://164.92.166.52:8069/jsonrpc") else { return }
+        guard let url = URL(string: "http://164.92.166.52:8069/jsonrpc?download=true") else { return }
 
         // Create the request body
         let requestBody: [String: Any] = [
@@ -24,8 +26,8 @@ class InvoiceViewModel: ObservableObject {
                     "search_read",  // method
                     [],  // search conditions
                     [
-                        "fields": ["name", "partner_id", "invoice_date", "amount_total"],
-                        "limit": 10
+//                        "fields": ["name", "partner_id", "invoice_date", "amount_total"],
+//                    "limit": 10,
                     ]
                 ]
             ],
@@ -64,6 +66,11 @@ class InvoiceViewModel: ObservableObject {
                 let invoiceResponse = try JSONDecoder().decode(InvoiceResponse.self, from: data)
                 DispatchQueue.main.async {
                     self.invoices = invoiceResponse.result
+                    
+                    // Now get the PDF for the first invoice in the result
+                                        if let firstInvoice = invoiceResponse.result.first {
+                                            self.downloadInvoicePDF(invoiceID: firstInvoice.id)
+                                        }
                 }
             } catch {
                 print("Error decoding JSON: \(error)")
@@ -72,6 +79,64 @@ class InvoiceViewModel: ObservableObject {
 
         task.resume()
     }
+    func downloadInvoicePDF(invoiceID: Int) {
+        // Define the URL for downloading the invoice PDF
+        guard let pdfURL = URL(string: "http://164.92.166.52:8069/jsonrpc/report/pdf/account.report_invoice/\(invoiceID)?download=true") else {
+            print("Invalid URL")
+            return
+        }
+        
+        // Create the URLRequest object for the PDF request
+        var request = URLRequest(url: pdfURL)
+        request.httpMethod = "GET"
+        
+        // Perform the network request to download the PDF
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error downloading PDF: \(error)")
+                return
+            }
+            
+            guard let data = data else {
+                print("Error: No data received")
+                return
+            }
+            
+            // Save the PDF data locally, or display it as needed
+            let fileManager = FileManager.default
+            let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let pdfFileURL = documentsURL.appendingPathComponent("invoice_\(invoiceID).pdf")
+            
+            do {
+                try data.write(to: pdfFileURL)
+                print("Invoice PDF saved to: \(pdfFileURL)")
+                DispatchQueue.main.async {
+                                    self.pdfURL = pdfFileURL
+                                }
+            } catch {
+                print("Error saving PDF: \(error)")
+            }
+        }
+        
+        task.resume()
+    }
+    struct PDFKitView: UIViewRepresentable {
+        let url: URL
+        
+        func makeUIView(context: Context) -> PDFView {
+            let pdfView = PDFView()
+            if let document = PDFDocument(url: url) {
+                pdfView.document = document
+                pdfView.autoScales = true
+            }
+            return pdfView
+        }
+        
+        func updateUIView(_ uiView: PDFView, context: Context) {
+            // No need to update view in this case
+        }
+    }
+
 }
 
 
